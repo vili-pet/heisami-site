@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heisami — suomalainen henkilökohtainen assistentti</title>
+<meta name="description" content="Heisami lukee sähköpostisi, tarkistaa kalenterisi ja kertoo mitä seuraavaksi. Ei miehelle hassumpaa työntekijää. Jää jonoon — ensimmäiset 50 pääsevät ilmaiseksi.">
+<meta property="og:title" content="Heisami — sun elämän helpoin työntekijä">
+<meta property="og:description" content="Lukee postit. Katsoo kalenterin. Sanoo mitä tehdä. Sinä jatkat elämää.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fi_FI">
+<meta name="theme-color" content="#0e1116">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕶️</text></svg>">
+<style>
+  :root {
+    --bg: #0e1116;
+    --card: #171c23;
+    --border: #262d37;
+    --text: #e8edf2;
+    --dim: #9199a3;
+    --accent: #6db3e8;
+    --accent-dim: #2c4256;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 28px 0 8px; display: flex; align-items: center; gap: 10px; }
+  .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .logo-tag { color: var(--dim); font-size: 0.8rem; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+
+  .hero { padding: 56px 0 40px; }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.sub {
+    margin-top: 18px;
+    font-size: 1.15rem;
+    color: var(--dim);
+    max-width: 34em;
+  }
+  .hero .promise {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    color: var(--accent);
+  }
+
+  form { margin-top: 34px; }
+  .field { display: flex; flex-direction: column; gap: 10px; }
+  input[type="email"], textarea {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font: inherit;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  input[type="email"]:focus, textarea:focus { border-color: var(--accent); }
+  textarea { min-height: 84px; resize: vertical; }
+  button {
+    width: 100%;
+    background: var(--accent);
+    color: #08121b;
+    font: inherit;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: filter .15s;
+  }
+  button:hover { filter: brightness(1.1); }
+  .spots { margin-top: 10px; font-size: 0.85rem; color: var(--dim); text-align: center; }
+  .hidden-field { position: absolute; left: -9999px; }
+
+  section.features { padding: 34px 0 10px; }
+  .features h2, .how h2 { font-size: 1.3rem; letter-spacing: -0.01em; margin-bottom: 18px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .card strong { display: block; margin-bottom: 4px; font-size: 1.02rem; }
+  .card p { color: var(--dim); font-size: 0.95rem; }
+
+  section.how { padding: 26px 0 10px; }
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+  .step::before {
+    counter-increment: step;
+    content: counter(step);
+    flex: 0 0 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step p { padding-top: 5px; }
+  .step p b { color: var(--text); }
+  .step p { color: var(--dim); }
+
+  section.faq { padding: 26px 0 10px; }
+  .faq .card strong { color: var(--text); }
+
+  footer { padding: 40px 0 48px; color: var(--dim); font-size: 0.85rem; }
+  footer p { margin-bottom: 8px; }
+  details { color: var(--dim); font-size: 0.85rem; margin-top: 14px; }
+  details summary { cursor: pointer; color: var(--text); font-weight: 600; }
+  details p { margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">Hei<span>Sami</span></div>
+    <div class="logo-tag">henkilökohtainen assistentti</div>
+  </header>
+
+  <section class="hero">
+    <h1>Postit luettu.<br>Kalenteri järjessä.<br><em>Sinä levissä.</em></h1>
+    <p class="sub">Heisami on suomalainen henkilökohtainen assistentti. Se lukee sähköpostisi, tarkistaa kalenterisi ja kertoo mitä pitää tehdä seuraavaksi.</p>
+    <p class="promise">Ei valita. Ei lounastaukoja. Ei miehelle hassumpaa työntekijää.</p>
+
+    <form action="https://formsubmit.co/vili.hyrkas@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Uusi jonottaja: Heisami">
+      <input type="hidden" name="_next" value="https://vili-pet.github.io/heisami/kiitos.html">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="field">
+        <input type="email" name="email" required placeholder="sähköpostisi" autocomplete="email">
+        <textarea name="toive" placeholder="Mitä haluaisit että Sami hoitaa? (valinnainen)"></textarea>
+        <button type="submit">Jää jonoon</button>
+        <div class="spots">Ensimmäiset 50 pääsevät kokeilemaan ilmaiseksi.</div>
+      </div>
+    </form>
+  </section>
+
+  <section class="features">
+    <h2>Mitä Sami tekee</h2>
+    <div class="card">
+      <strong>📖 Lukee sun postit</strong>
+      <p>Koko inbox käydään läpi — Sami kertoo mitkä kolme oikeasti vaativat sinua, ja mitä loput sisältävät yhdellä rivillä.</p>
+    </div>
+    <div class="card">
+      <strong>📅 Katsoo sun kalenterin</strong>
+      <p>Huomisen, viikon ja sen seuraavankin. Sami muistuttaa ennen kuin ehdit unohtaa.</p>
+    </div>
+    <div class="card">
+      <strong>🎯 Sanoo mitä seuraavaksi</strong>
+      <p>Ei listoja, ei dashboardeja, ei hälytyksiä kello joka tunnille. Yksi viesti: tee tämä, sitten olet kotona.</p>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>Miten se toimii</h2>
+    <div class="steps">
+      <div class="step"><p><b>Jää jonoon.</b> Jätä sähköpostisi yllä — kutsu tulee kun sun vuoro aukeaa.</p></div>
+      <div class="step"><p><b>Kytke Gmail ja kalenteri.</b> Kaksi klikkausta, Sami hoitaa loput. Näkee vain sen, minkä kytät.</p></div>
+      <div class="step"><p><b>Vastaanota rauha.</b> Aamulla yksi viesti: tänään tapahtuu tämä, tähän pitää vastata, muuten ei kiirettä.</p></div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Kysyttyä</h2>
+    <div class="card">
+      <strong>Onko tämä tekoäly?</strong>
+      <p>On. Mutta se ei selitä sitä — se tekee töitä.</p>
+    </div>
+    <div class="card">
+      <strong>Näkeekö Sami kaiken postini?</strong>
+      <p>Vain sen minkä itse kytkät. Voit katkaista yhteyden koskaessa, yhdellä klikkauksella.</p>
+    </div>
+    <div class="card">
+      <strong>Mitä tämä maksaa?</strong>
+      <p>Jonon ensimmäiset 50 pääsevät ilmaiseksi ja pysyvät ilmaiseksi. Muista luvataan enemmän juuri siksi, että kerromme sen suoraan myöhemmin.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Heisami — suomalaisen miehen henkilökohtainen assistentti.</p>
+    <details>
+      <summary>Tietosuoja lyhyesti</summary>
+      <p>Jättämällä sähköpostisi jonoon tallennamme sen ainoastaan kutsuaksemme sinut Heisamin kokeiluun. Emme myy, vuokraa tai jaa osoitettasi kenellekään, emmekä lisää sinut uutiskirjelistalle. Jonosta voi poistua milloin tahansa ilmoittamalla siitä samalla osoitteella, jolla liityit.</p>
+    </details>
+  </footer>
+
+</div>
+</body>
+</html>
